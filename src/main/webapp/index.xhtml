@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+<h:head>
+    <title>Chat Jakarta EE</title>
+    <h:outputStylesheet library="css" name="style.css"/>
+    <h:outputScript library="js" name="app.js" target="body"/>
+</h:head>
+<h:body>
+    <h:form id="form">
+        <h:messages id="messages" styleClass="messages"/>
+        <div class="topline">
+            <h:outputLabel for="role" value="Rôle de l'API :"/>
+            <h:selectOneMenu id="role" value="#{conversationBean.role}"
+                             disabled="#{not empty conversationBean.conversation}">
+                <f:selectItem itemLabel="helpful assistant" itemValue="Assistant"/>
+                <f:selectItem itemLabel="Traducteur français-anglais" itemValue="Traducteur français-anglais"/>
+                <f:selectItem itemLabel="Guide touristique" itemValue="Guide touristique"/>
+            </h:selectOneMenu>
+            <h:commandButton value="Nouveau chat" action="#{conversationBean.nouveauChat}" immediate="true"/>
+        </div>
+
+        <div class="columns">
+            <section class="left-column">
+                <div class="label-line">
+                    <h:outputLabel for="question" value="Question :"/>
+                    <button type="button" data-copy="form:question">Copier question</button>
+                    <h:commandButton value="Effacer question et réponse"
+                                     action="#{conversationBean.effacerQuestionEtReponse}"
+                                     immediate="true">
+                        <f:ajax execute="@this" render="question reponse"/>
+                    </h:commandButton>
+                </div>
+                <h:inputTextarea id="question" value="#{conversationBean.question}" styleClass="question"/>
+                <div class="send-line">
+                    <h:commandButton value="Envoyer la question" action="#{conversationBean.envoyer}">
+                        <f:ajax execute="@form" render="messages question reponse historique"/>
+                    </h:commandButton>
+                </div>
+
+                <div class="label-line response-label">
+                    <h:outputLabel for="reponse" value="Réponse :"/>
+                    <button type="button" data-copy="form:reponse">Copier réponse</button>
+                </div>
+                <h:inputTextarea id="reponse" value="#{conversationBean.reponse}" readonly="true" styleClass="response"/>
+            </section>
+
+            <section class="right-column">
+                <div class="label-line">
+                    <h:outputLabel for="historique" value="Conversation :"/>
+                    <button type="button" data-copy="form:historique">Copier conversation</button>
+                </div>
+                <h:inputTextarea id="historique" value="#{conversationBean.conversation}" readonly="true" styleClass="history"/>
+            </section>
+        </div>
+    </h:form>
+</h:body>
+</html>

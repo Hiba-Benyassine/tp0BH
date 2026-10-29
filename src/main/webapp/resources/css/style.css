@@ -1,0 +1,22 @@
+/* Présentation volontairement simple, calquée sur la maquette du TP. */
+body { margin: 8px; color: #000; font-family: "Times New Roman", serif; font-size: 16px; }
+.topline { display: flex; align-items: center; gap: 7px; margin: 14px 0 16px 10px; }
+.topline select { width: 328px; height: 46px; padding: 5px 10px; font: 20px Arial, sans-serif; }
+.columns { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 17px; margin: 0 20px; }
+.left-column, .right-column { min-width: 0; }
+.label-line { display: flex; align-items: center; gap: 7px; min-height: 25px; margin-bottom: 7px; }
+.label-line label { font-size: 20px; }
+button, input[type="submit"] { font: 16px Arial, sans-serif; }
+textarea { display: block; box-sizing: border-box; width: 100%; padding: 2px; font: 16px monospace; resize: both; }
+textarea.question { height: 111px; }
+.send-line { margin: 10px 0 5px; }
+.response-label { margin-bottom: 7px; }
+textarea.response { height: 315px; }
+textarea.history { height: 622px; }
+.messages { display: block; color: #b00020; }
+@media (max-width: 700px) {
+  .topline { flex-wrap: wrap; margin-left: 0; }
+  .topline select { max-width: 100%; }
+  .columns { grid-template-columns: 1fr; margin: 0; gap: 18px; }
+  textarea.history { height: 315px; }
+}
